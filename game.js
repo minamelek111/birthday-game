@@ -2190,10 +2190,7 @@ function updateAngelGameDialogue() {
             if (
     dialogueDisplayedChars % 3 === 0 &&
     BIRTHDAY_MESSAGE[dialogueDisplayedChars - 1] !== " "
-) {
-    typingSound.currentTime = 0;
-    typingSound.play().catch(() => {});
-}
+) 
             dialogueLastCharTime = now;
 
             if (dialogueDisplayedChars >= BIRTHDAY_MESSAGE.length) {
