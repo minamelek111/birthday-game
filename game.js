@@ -158,7 +158,7 @@ const BIRTHDAY_MESSAGE =
     " insanın hayatına giren bazı insanlar, fark etmeden hayatının en güzel parçalarından biri olur. Sen de benim için tam olarak öylesin. Birlikte güldüğümüz,konuştuğumuz ve sadece yan yana olduğumuz anların  bile benim için ayrı bir yeri var. İyi ki hayatımdasın,  iyi ki doğdun Verda.";
 const ANGEL_GRAVITY = 0.28;
 const ANGEL_JUMP_FORCE = -9;
-const ANGEL_MOVE_SPEED = 1;
+const ANGEL_MOVE_SPEED = 1.6;
 const ANGEL_GROUND_Y = 128;       // koşu zemininin yüzeyi (dünya/ekran birimi, dikey kaydırma yok)
 const ANGEL_WORLD_W = 1500;       // seviyenin toplam genişliği
 const ANGEL_DEATH_Y = ANGEL_GROUND_Y + 90; // bu kadar düşünce (çukura düşünce) öl
