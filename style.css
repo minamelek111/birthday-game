@@ -1,0 +1,299 @@
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: #171827;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    touch-action: none;
+    overscroll-behavior: none;
+}
+
+/* ==========================================================
+   TAM EKRAN OYUN
+   ========================================================== */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #171827;
+    overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
+    font-family: Arial, sans-serif;
+}
+
+/* ==========================================================
+   TAM EKRAN / RESPONSIVE OYUN
+   ========================================================== */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #171827;
+    overflow: hidden;
+
+    touch-action: none;
+    overscroll-behavior: none;
+
+    font-family: Arial, sans-serif;
+}
+
+#game-container {
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 100vw;
+    width: 100dvw;
+
+    height: 100vh;
+    height: 100dvh;
+
+    overflow: hidden;
+}
+
+#viewport {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+canvas {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    /*
+     * Oyunun tamamını telefon ekranına yay.
+     * Böylece artık 4:3 kutu yok.
+     */
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+
+    background: #171827;
+
+    user-select: none;
+    -webkit-user-select: none;
+
+    touch-action: none;
+}
+
+#start-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at 50% 30%, #3a2740, #171827 75%);
+    z-index: 30;
+    text-align: center;
+    padding: 5%;
+}
+
+#start-screen.hidden {
+    display: none;
+}
+
+#start-screen-inner {
+    color: #ffffff;
+    max-width: 90%;
+}
+
+#start-emoji {
+    font-size: clamp(28px, 8vw, 44px);
+    margin-bottom: 8px;
+}
+
+#start-screen h1 {
+    margin: 0 0 10px 0;
+    font-size: clamp(18px, 5vw, 30px);
+    color: #f6d9e6;
+}
+
+#start-screen p {
+    margin: 0 0 20px 0;
+    font-size: clamp(12px, 3vw, 16px);
+    color: #d9c9d6;
+    line-height: 1.5;
+}
+
+#start-button {
+    border: none;
+    padding: 12px 32px;
+    background: #e8a0a8;
+    color: white;
+    font-size: clamp(14px, 3.5vw, 17px);
+    cursor: pointer;
+    border-radius: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 0 #b96f78;
+}
+
+#start-button:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #b96f78;
+}
+
+#message-box {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: 5%;
+    padding: 20px;
+    background: rgba(30, 25, 35, 0.95);
+    border: 4px solid #e8c7a5;
+    color: white;
+    text-align: center;
+    font-size: clamp(12px, 2.5vw, 18px);
+    z-index: 20;
+}
+
+#message-box.hidden {
+    display: none;
+}
+
+#message-content {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+#memory-video {
+    max-width: 100%;
+}
+
+button {
+    border: none;
+    padding: 10px 25px;
+    background: #e8a0a8;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#touch-controls {
+    display: none;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 14px 18px calc(14px + env(safe-area-inset-bottom, 0px)) 18px;
+
+    z-index: 25;
+
+    justify-content: space-between;
+    align-items: flex-end;
+
+    pointer-events: none;
+}
+
+.touch-btn {
+    pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    background: rgba(30, 20, 30, 0.45);
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.touch-btn:active {
+    background: rgba(232, 160, 168, 0.55);
+    transform: scale(0.94);
+}
+
+#touch-dpad {
+    position: relative;
+    width: 148px;
+    height: 148px;
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 50%;
+}
+
+#touch-dpad .touch-btn {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+
+#btn-up {
+    top: 0;
+    left: 49px;
+}
+
+#btn-down {
+    bottom: 0;
+    left: 49px;
+}
+
+#btn-left {
+    left: 0;
+    top: 49px;
+}
+
+#btn-right {
+    right: 0;
+    top: 49px;
+}
+
+.touch-action {
+    width: 72px;
+    height: 72px;
+    font-size: 22px;
+    margin-bottom: 12px;
+    background: rgba(224, 81, 122, 0.55);
+}
+
+@media (pointer: coarse) {
+    #touch-controls {
+        display: flex;
+    }
+}

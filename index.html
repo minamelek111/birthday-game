@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Our Memories 🎂</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="game-container">
+
+        <div id="viewport">
+
+            <canvas id="game"></canvas>
+
+            <!-- ============ MOBİL DOKUNMATİK KONTROLLER ============ -->
+            <div id="touch-controls">
+
+                <div id="touch-dpad">
+                    <button class="touch-btn" id="btn-up" data-key="arrowup">▲</button>
+                    <button class="touch-btn" id="btn-left" data-key="arrowleft">◀</button>
+                    <button class="touch-btn" id="btn-right" data-key="arrowright">▶</button>
+                    <button class="touch-btn" id="btn-down" data-key="arrowdown">▼</button>
+                </div>
+
+                <button class="touch-btn touch-action" id="btn-interact" data-key="e">E</button>
+
+            </div>
+
+        </div>
+
+        <!-- ============ BAŞLANGIÇ EKRANI ============ -->
+        <div id="start-screen">
+            <div id="start-screen-inner">
+                <div id="start-emoji">🎂✨</div>
+                <h1>İyi ki Doğdun</h1>
+                <p>Sana özel küçük bir oda hazırladım. Gez, keşfet ve beni bul...</p>
+                <button id="start-button">Başla</button>
+            </div>
+        </div>
+
+        <!-- ============ ANI VİDEOSU POPUP ============ -->
+        <div id="message-box" class="hidden">
+
+            <div id="memory-popup">
+
+                <video id="memory-video" controls playsinline>
+                    <source src="assets/memories.mp4" type="video/mp4">
+                </video>
+
+                <h2>Birlikte Geçirdiğimiz Anılar</h2>
+
+                <p id="memory-text">
+                    Buraya daha sonra yazını ekleyeceğiz.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
