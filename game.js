@@ -2037,7 +2037,7 @@ function updateAngelGamePlaying() {
     const jumpPressed =
     keys["arrowup"] ||
     keys["w"] ||
-    keys[" "];
+    keys[" "] || keys["e"]
 
 if (jumpPressed && angelPlayer.onGround) {
 
@@ -2048,6 +2048,10 @@ if (jumpPressed && angelPlayer.onGround) {
     interactSound.play().catch(() => {});
 }
 
+if (keys["e"]) {
+    keys["e"] = false;
+}    
+    
     angelPlayer.vy += ANGEL_GRAVITY;
     if (angelPlayer.vy > 8) angelPlayer.vy = 8;
 
