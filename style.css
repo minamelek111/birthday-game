@@ -21,9 +21,6 @@ body {
     overscroll-behavior: none;
 }
 
-/* ==========================================================
-   TAM EKRAN OYUN
-   ========================================================== */
 
 html,
 body {
@@ -41,9 +38,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* ==========================================================
-   TAM EKRAN / RESPONSIVE OYUN
-   ========================================================== */
 
 html,
 body {
@@ -101,10 +95,6 @@ canvas {
     width: 100%;
     height: 100%;
 
-    /*
-     * Oyunun tamamını telefon ekranına yay.
-     * Böylece artık 4:3 kutu yok.
-     */
     image-rendering: pixelated;
     image-rendering: crisp-edges;
 
