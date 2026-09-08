@@ -1,9 +1,9 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-// ==========================================================
-// GERÇEK TAM EKRAN
-// ==========================================================
+
+
+
 
 async function enterFullscreen() {
 
@@ -20,7 +20,7 @@ async function enterFullscreen() {
 
             } else if (gameContainer.webkitRequestFullscreen) {
 
-                // iOS / Safari için
+                
                 await gameContainer.webkitRequestFullscreen();
 
             }
@@ -34,7 +34,7 @@ async function enterFullscreen() {
         }
     }
 
-    // Mobil tarayıcıda ekran yönünü mümkünse landscape tut.
+    
     try {
 
         if (
@@ -46,15 +46,15 @@ async function enterFullscreen() {
 
     } catch (error) {
 
-        // Her tarayıcı orientation lock desteklemiyor.
+        
     }
 
     resizeGame();
 }
 
-// ==========================================================
-// SABİT OYUN CANVAS'I
-// ==========================================================
+
+
+
 
 const BASE_WIDTH = 320;
 const BASE_HEIGHT = 240;
@@ -64,16 +64,16 @@ let GAME_HEIGHT = BASE_HEIGHT;
 
 function resizeGame() {
 
-    // Oyun mantıksal olarak her zaman 320x240.
-    // Ekrana sığdırmayı style.css yapıyor.
+    
+    
     GAME_WIDTH = BASE_WIDTH;
     GAME_HEIGHT = BASE_HEIGHT;
 
     canvas.width = BASE_WIDTH * 2;
     canvas.height = BASE_HEIGHT * 2;
 
-    // CSS boyutunu JS ile değiştirmiyoruz.
-    // style.css'deki #viewport 4:3 oranını koruyacak.
+    
+    
     canvas.style.width = "";
     canvas.style.height = "";
 
@@ -89,10 +89,10 @@ window.addEventListener("orientationchange", () => {
 
 resizeGame();
 
-// ---- BAŞLANGIÇ EKRANI ----
-// Oyun, kullanıcı "Başla" butonuna basana kadar duraklatılmış kalır.
-// Bu sayede sesler de (autoplay kısıtlaması nedeniyle) ilk kullanıcı
-// etkileşiminden sonra sorunsuz çalışır.
+
+
+
+
 let gameStarted = false;
 
 let player = {
@@ -121,9 +121,9 @@ memoryVideo.muted = false;
 memoryVideo.playsInline = true;
 memoryVideo.preload = "auto";
 
-// ---- SES EFEKTLERİ ----
-// Bu iki dosyayı assets/ klasörüne kendin eklemen gerekiyor:
-// assets/footstep.mp3  ve  assets/interact.mp3
+
+
+
 const footstepSound = new Audio("assets/footstep.mp3");
 footstepSound.volume = 0.4;
 
@@ -132,7 +132,7 @@ interactSound.volume = 0.25;
 
 let lastFootstepTime = 0;
 
-// ---- RANZA TIRMANMA ----
+
 const bunkLadderPoint = { x: 90, y: 150, interactionDistance: 30 };
 
 const bunkTopBounds = { minX: 36, maxX: 88, minY: 56, maxY: 64 };
@@ -141,27 +141,27 @@ const bunkExitPoint = { x: 90, y: 150 };
 
 let bunkNearby = false;
 
-// ---- LAPTOP ----
+
 const laptopPoint = { x: 255, y: 150, interactionDistance: 30 };
 let laptopOpen = false;
 let angelGameOpen = false;
 let browserOpen = false;
 let angelGameWon = false;
 
-// ==========================================================
-// MELEĞE ULAŞ OYUNU  (yeniden yazıldı - yatay/Mario tarzı)
-// ==========================================================
-//
-// ✏️  BURAYI SEN DEĞİŞTİR: sona ulaşınca beliren, harf harf yazılan
-// sevgi paragrafı. İstediğin uzunlukta yazabilirsin.
+
+
+
+
+
+
 const BIRTHDAY_MESSAGE =
-    " insanın hayatına giren bazı insanlar, fark etmeden hayatının en güzel parçalarından biri olur. Sen de benim için tam olarak öylesin. Birlikte güldüğümüz,konuştuğumuz ve sadece yan yana olduğumuz anların  bile benim için ayrı bir yeri var. İyi ki hayatımdasın,  iyi ki doğdun Verda.";
+    " Some people who come into your life become one of the most beautiful parts of it without you even realising it. That’s exactly what you are to me. Even the moments when we laugh together, chat, or simply sit side by side holds a special place in my heart. I’m so glad you’re in my life, Verda.";
 const ANGEL_GRAVITY = 0.28;
 const ANGEL_JUMP_FORCE = -9;
 const ANGEL_MOVE_SPEED = 1.6;
-const ANGEL_GROUND_Y = 128;       // koşu zemininin yüzeyi (dünya/ekran birimi, dikey kaydırma yok)
-const ANGEL_WORLD_W = 1500;       // seviyenin toplam genişliği
-const ANGEL_DEATH_Y = ANGEL_GROUND_Y + 90; // bu kadar düşünce (çukura düşünce) öl
+const ANGEL_GROUND_Y = 128;       
+const ANGEL_WORLD_W = 1500;       
+const ANGEL_DEATH_Y = ANGEL_GROUND_Y + 90; 
 
 const angelPlayer = {
     x: 10,
@@ -176,10 +176,10 @@ const angelPlayer = {
 
 let angelCameraX = 0;
 
-// Oyunun aşaması: "playing" -> "approach" -> "dialogue" -> "candles" -> "won"
+
 let angelPhase = "playing";
 
-// Çukurlar (üstünden atlanmazsa düşülür)
+
 const angelPits = [
     { x: 220, w: 34 },
     { x: 430, w: 40 },
@@ -188,7 +188,7 @@ const angelPits = [
     { x: 1140, w: 36 }
 ];
 
-// Dikenler / tuzaklar (temas edince en baştan başlanır)
+
 const angelSpikes = [
     { x: 340, w: 16 },
     { x: 560, w: 24 },
@@ -197,7 +197,7 @@ const angelSpikes = [
     { x: 1250, w: 24 }
 ];
 
-// Havada duran platformlar (Mario tarzı zıplama alanları)
+
 const angelPlatforms = [
     { x: 260, y: ANGEL_GROUND_Y - 40, w: 50, h: 10 },
     { x: 500, y: ANGEL_GROUND_Y - 55, w: 46, h: 10 },
@@ -206,17 +206,17 @@ const angelPlatforms = [
     { x: 1180, y: ANGEL_GROUND_Y - 40, w: 50, h: 10 }
 ];
 
-// Yol boyunca karşılaşılan tatlı sözler (bir kere tetiklenir)
+
 const angelSweetSpots = [
-    { x: 90, text: "Seninle her yol güzel 💕", triggered: false },
-    { x: 380, text: "Gülüşün her şeyi aydınlatıyor ✨", triggered: false },
-    { x: 620, text: "İyi ki varsın", triggered: false },
-    { x: 860, text: "Az kaldı, devam et 🎈", triggered: false },
-    { x: 1100, text: "Seni çok özledim", triggered: false },
-    { x: 1320, text: "Neredeyse geldin...", triggered: false }
+    { x: 90, text: "Everything is lovely with you 💕", triggered: false },
+    { x: 380, text: "you're the best thing happened to me✨", triggered: false },
+    { x: 620, text: "I’m so glad you’re here", triggered: false },
+    { x: 860, text: "You’re almost there, keep going🎈", triggered: false },
+    { x: 1100, text: "i miss you", triggered: false },
+    { x: 1320, text: "You’re almost here", triggered: false }
 ];
 
-// Toplanacak mumlar - pastadaki mum sayısıyla aynı olmalı
+
 const angelCandles = [
     { x: 160, collected: false },
     { x: 300, collected: false },
@@ -230,40 +230,40 @@ const angelCandles = [
 
 const ANGEL_GOAL_X = ANGEL_WORLD_W - 70;
 
-// Konuşma balonu / harf harf yazma durumu
+
 let dialogueDisplayedChars = 0;
 let dialogueLastCharTime = 0;
-const DIALOGUE_CHAR_INTERVAL = 32; // ms/harf
+const DIALOGUE_CHAR_INTERVAL = 32; 
 let dialogueDone = false;
 
-// Mumları pastaya yerleştirme durumu
+
 let candlesPlaced = 0;
 let approachTimer = 0;
 
-// Masaüstü ikonları (koordinatlar drawLaptopScreen içindeki screenX/screenY'e GÖRE DEĞİL,
-// doğrudan canvas koordinatı - drawDesktopIcons içinde hesaplanıyor)
+
+
 const desktopIcons = [
-    { id: "notes", label: "Notlarım.txt", type: "file" },
-    { id: "photos", label: "Fotoğraflar", type: "folder" },
-    { id: "browser", label: "Tarayıcı", type: "app" },
-    { id: "angelGame", label: "Meleğe Ulaş", type: "game" }
+    { id: "notes", label: "Notes.txt", type: "file" },
+    { id: "photos", label: "pictures", type: "folder" },
+    { id: "browser", label: "browser", type: "app" },
+    { id: "angelGame", label: "reach melek", type: "game" }
 ];
 
-// Tıklanabilir alanları saklamak için (her frame'de drawDesktopIcons tarafından doldurulur)
+
 let iconHitboxes = [];
 
 const obstacles = [
-    // Ranza
+    
     { x: 30, y: 64, width: 72, height: 82 },
 
-    // Çalışma masası
+    
     { x: 205, y: 84, width: 70, height: 59 },
 
-    // Kitaplık
+    
     { x: 225, y: 30, width: 55, height: 48 },
 
-    // Kapı
-    // Kapının içinden geçebilmesi için şimdilik EKLEMİYORUZ
+    
+    
 ];
 
 const keys = {};
@@ -276,8 +276,8 @@ document.addEventListener("keydown", (e) => {
 
     keys[key] = true;
 
-    // Mini oyun açıkken tarayıcının sayfayı
-    // kaydırmasını engelle.
+    
+    
     if (
         angelGameOpen &&
         (
@@ -297,7 +297,7 @@ document.addEventListener("keyup", (e) => {
     keys[e.key.toLowerCase()] = false;
 });
 
-// ---- BAŞLA BUTONU ----
+
 const startScreenEl = document.getElementById("start-screen");
 const startButtonEl = document.getElementById("start-button");
 async function enterFullscreen() {
@@ -316,7 +316,7 @@ async function enterFullscreen() {
             await screen.orientation.lock("landscape");
         }
     } catch (error) {
-        // Bazı telefon/tarayıcılar yön kilitlemeyi desteklemiyor.
+        
     }
 
     if (typeof resizeGame === "function") {
@@ -328,16 +328,16 @@ if (startButtonEl) {
         gameStarted = true;
         startScreenEl.classList.add("hidden");
 
-        // İlk kullanıcı etkileşimi geldiği için sesleri burada
-        // "ısındırmak" bazı tarayıcılarda sonraki play() çağrılarını kolaylaştırır.
+        
+        
         interactSound.play().then(() => {
             interactSound.pause();
             interactSound.currentTime = 0;
         }).catch(() => {});
 
-        // Anı videosunu da aynı şekilde ısındırıyoruz: bazı tarayıcılar
-        // sesli bir <video>'yu ancak ilk kullanıcı etkileşiminden hemen
-        // sonra bir kere "dokunulmuşsa" daha sonra sorunsuz çalar.
+        
+        
+        
         const wasMuted = memoryVideo.muted;
         memoryVideo.muted = true;
         memoryVideo.play().then(() => {
@@ -350,11 +350,11 @@ if (startButtonEl) {
     });
 }
 
-// ---- MOBİL DOKUNMATİK KONTROLLER ----
-// Her buton, ilgili klavye tuşunu basılıymış gibi işaretler/kaldırır.
-// Böylece update(), checkXInteraction() ve updateAngelGame() içindeki
-// mevcut "keys[...]" mantığı hiç değişmeden hem klavye hem dokunmatik
-// girişle çalışır.
+
+
+
+
+
 document.querySelectorAll(".touch-btn").forEach((btn) => {
 
     const key = btn.dataset.key;
@@ -373,25 +373,25 @@ document.querySelectorAll(".touch-btn").forEach((btn) => {
     btn.addEventListener("touchend", release, { passive: false });
     btn.addEventListener("touchcancel", release, { passive: false });
 
-    // Fare ile de (masaüstünde dokunmatik ekran testi vb.) çalışsın
+    
     btn.addEventListener("mousedown", press);
     btn.addEventListener("mouseup", release);
     btn.addEventListener("mouseleave", release);
 });
 
-// Canvas ekranda CSS ile ölçeklendiği ve ctx.scale(1.5,1.5) uygulandığı için
-// tıklama/dokunma koordinatlarını gerçek çizim koordinatına çeviriyoruz.
-// Hem fare tıklaması hem de mobil dokunuş aynı fonksiyonu kullanır.
-// ==========================================================
-// LAPTOP TIKLAMA / DOKUNMA
-// ==========================================================
+
+
+
+
+
+
 
 function getGameCoordinates(clientX, clientY) {
     const rect = canvas.getBoundingClientRect();
 
-    // CSS boyutundan gerçek oyun koordinatına dönüşüm.
-    // ctx.scale artık hesaba katılmıyor çünkü mantıksal
-    // koordinat sistemimiz doğrudan 320x240.
+    
+    
+    
     const x =
         (clientX - rect.left) /
         rect.width *
@@ -423,9 +423,9 @@ function handleLaptopTap(clientX, clientY) {
             y <= box.y + box.h
         ) {
 
-            // -----------------------------
-            // MELEĞE ULAŞ
-            // -----------------------------
+            
+            
+            
             if (box.id === "angelGame") {
 
                 angelGameOpen = true;
@@ -439,9 +439,9 @@ function handleLaptopTap(clientX, clientY) {
                 return;
             }
 
-            // -----------------------------
-            // TARAYICI
-            // -----------------------------
+            
+            
+            
             if (box.id === "browser") {
 
                 browserOpen = true;
@@ -479,9 +479,9 @@ canvas.addEventListener(
     { passive: false }
 );
 
-// ========================================
-// HAREKET  (DEĞİŞTİRİLMEDİ)
-// ========================================
+
+
+
 
 function isColliding(x, y) {
 
@@ -514,7 +514,7 @@ function update() {
     player.walking = false;
 
     if (laptopOpen) {
-        // Laptop (ve içindeki oyun) açıkken oda karakteri hareket etmesin
+        
         return;
     }
 
@@ -547,8 +547,8 @@ function update() {
 
     if (player.onBunk) {
 
-        // Ranzanın üstündeyken eşyalarla çarpışma kontrolü yapılmaz,
-        // sadece ranza üst yüzeyi sınırları içinde kalır
+        
+        
         player.x += dx;
         player.y += dy;
 
@@ -557,22 +557,22 @@ function update() {
 
     } else {
 
-        // Önce X hareketini kontrol et
+        
         if (!isColliding(player.x + dx, player.y)) {
             player.x += dx;
         }
 
-        // Sonra Y hareketini kontrol et
+        
         if (!isColliding(player.x, player.y + dy)) {
             player.y += dy;
         }
 
-        // Odanın içinde kalmasını sağla
+        
         player.x = Math.max(27, Math.min(277, player.x));
         player.y = Math.max(65, Math.min(190, player.y));
     }
 
-    // Yürüme sesi
+    
     if (player.walking) {
 
         const now = Date.now();
@@ -620,15 +620,15 @@ function checkMemoryInteraction() {
     }
 }
 
-// ---- LAPTOP ETKİLEŞİMİ ----
+
 let laptopNearby = false;
 
 function checkLaptopInteraction() {
 
-    // Mini oyun açıkken oda etkileşimleri çalışmasın.
+    
    if (angelGameOpen) {
 
-    // Kazandın ekranında E veya ESC ile çık
+    
     if (angelPhase === "won" && (keys["e"] || keys["escape"])) {
 
         angelGameOpen = false;
@@ -640,7 +640,7 @@ function checkLaptopInteraction() {
         interactSound.play().catch(() => {});
     }
 
-    // Diğer aşamalarda sadece ESC ile çıkabilsin
+    
     else if (keys["escape"]) {
 
         angelGameOpen = false;
@@ -653,7 +653,7 @@ function checkLaptopInteraction() {
     return;
 }
 
-    // Tarayıcı açıkken ESC ile masaüstüne dön.
+    
     if (browserOpen) {
 
         if (keys["escape"] || keys["e"]) {
@@ -692,7 +692,7 @@ function checkLaptopInteraction() {
     laptopNearby =
         distance < laptopPoint.interactionDistance;
 
-    // Laptop kapalıysa E ile aç
+    
     if (!laptopOpen && laptopNearby && keys["e"]) {
 
         laptopOpen = true;
@@ -705,7 +705,7 @@ function checkLaptopInteraction() {
         return;
     }
 
-    // Laptop açık ve masaüstündeyse E ile kapat
+    
     if (laptopOpen && keys["e"]) {
 
         laptopOpen = false;
@@ -718,12 +718,12 @@ function checkLaptopInteraction() {
         return;
     }
 
-    // Oyuncu laptopun yanından uzaklaşırsa
-    // laptop otomatik kapanmasın.
-    // Önceki kodda burada kapanabiliyordu.
+    
+    
+    
 }
 
-// ---- RANZA ETKİLEŞİMİ ----
+
 function checkBunkInteraction() {
 
     if (memoryOpen || laptopOpen) return;
@@ -765,23 +765,23 @@ function checkBunkInteraction() {
 }
 
 
-// ========================================
-// ZEMİN
-// ========================================
+
+
+
 
 function drawFloor() {
 
         const ROOM_LEFT = 20;
 const ROOM_RIGHT = GAME_WIDTH - 20;
 const ROOM_WIDTH = ROOM_RIGHT - ROOM_LEFT;
-    // Ana zemin - hafif gradyan ile derinlik
+    
     const floorGrad = ctx.createLinearGradient(0, 62, 0, 220);
     floorGrad.addColorStop(0, "#e2ac9a");
     floorGrad.addColorStop(1, "#cf9484");
     ctx.fillStyle = floorGrad;
     ctx.fillRect(ROOM_LEFT,62,ROOM_WIDTH,158);
 
-    // Tahta döşemeler (koyu ayraç + ince üst highlight)
+    
     for (let y = 62; y < 220; y += 12) {
 
         ctx.strokeStyle = "#b06e62";
@@ -798,7 +798,7 @@ const ROOM_WIDTH = ROOM_RIGHT - ROOM_LEFT;
         ctx.stroke();
     }
 
-    // Tahta ahşap damarı detayları (kaydırmalı desen - daha doğal)
+    
     for (let row = 0, y = 68; y < 220; y += 24, row++) {
 
         const offset = (row % 2 === 0) ? 0 : 21;
@@ -812,29 +812,29 @@ const ROOM_WIDTH = ROOM_RIGHT - ROOM_LEFT;
         }
     }
 
-    // Kapı ve pencere altındaki yumuşak zemin gölgesi (ambient occlusion)
+    
     ctx.fillStyle = "rgba(90, 55, 45, 0.10)";
     ctx.fillRect(20, 62, 280, 6);
 }
 
 
-// ========================================
-// DUVAR
-// ========================================
+
+
+
 
 function drawWalls() {
 
 const ROOM_LEFT = 20;
 const ROOM_RIGHT = GAME_WIDTH - 20;
 const ROOM_WIDTH = ROOM_RIGHT - ROOM_LEFT;
-    // Duvar - hafif gradyan
+    
     const wallGrad = ctx.createLinearGradient(0, 20, 0, 63);
     wallGrad.addColorStop(0, "#f8efe3");
     wallGrad.addColorStop(1, "#ecdfd0");
     ctx.fillStyle = wallGrad;
     ctx.fillRect(ROOM_LEFT, 20, ROOM_WIDTH, 43);
 
-    // Duvar panelleri (highlight + gölge çifti, kabartma hissi)
+    
     for (let x = ROOM_LEFT; x <= ROOM_LEFT + ROOM_WIDTH; x += 28) {
 
         ctx.strokeStyle = "rgba(255,255,255,0.5)";
@@ -850,13 +850,13 @@ const ROOM_WIDTH = ROOM_RIGHT - ROOM_LEFT;
         ctx.stroke();
     }
 
-    // Alt duvar çıtası (gölgeli + highlight üst kenar)
+    
     ctx.fillStyle = "#8a564d";
     ctx.fillRect(ROOM_LEFT, 59, ROOM_WIDTH, 5);
     ctx.fillStyle = "#a97669";
     ctx.fillRect(ROOM_LEFT, 59, ROOM_WIDTH, 1);
 
-    // Üst gölge / kartonpiyer hissi
+    
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(ROOM_LEFT, 20, ROOM_WIDTH, 2);
     ctx.fillStyle = "rgba(150,120,100,0.12)";
@@ -864,9 +864,9 @@ const ROOM_WIDTH = ROOM_RIGHT - ROOM_LEFT;
 }
 
 
-// ========================================
-// PENCERE
-// ========================================
+
+
+
 
 function drawMemoryFrame() {
 
@@ -877,11 +877,11 @@ function drawMemoryFrame() {
 
     ctx.save();
 
-    // Duvara vuran gölge
+    
     ctx.fillStyle = "rgba(0,0,0,0.18)";
     ctx.fillRect(x + 3, y + 3, w, h);
 
-    // Asma ipleri
+    
     ctx.strokeStyle = "#9c8a6e";
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -891,14 +891,14 @@ function drawMemoryFrame() {
     ctx.lineTo(x + w - 6, y);
     ctx.stroke();
 
-    // Dış ahşap çerçeve
+    
     const frameGrad = ctx.createLinearGradient(x, y, x, y + h);
     frameGrad.addColorStop(0, "#8a6142");
     frameGrad.addColorStop(1, "#5e3f2b");
     ctx.fillStyle = frameGrad;
     ctx.fillRect(x, y, w, h);
 
-    // Oyulmuş kenar çentikleri (gerçek çerçevedeki desene benzer)
+    
     ctx.strokeStyle = "rgba(0,0,0,0.35)";
     ctx.lineWidth = 1;
     for (let i = 3; i < w - 3; i += 4) {
@@ -910,13 +910,13 @@ function drawMemoryFrame() {
         ctx.stroke();
     }
 
-    // İç mont (fon) alanı
+    
     ctx.fillStyle = "#f2e8db";
     ctx.fillRect(x + 4, y + 4, w - 8, h - 8);
     ctx.strokeStyle = "rgba(0,0,0,0.08)";
     ctx.strokeRect(x + 4.5, y + 4.5, w - 9, h - 9);
 
-    // ---- Küçük pixel fotoğraflar (mandallı, hafif eğik) ----
+    
     const photoColors = [
         ["#caa08e", "#e8c9b8"],
         ["#a98c9a", "#d3b7c2"],
@@ -950,15 +950,15 @@ function drawMemoryFrame() {
             ctx.translate(px + photoW / 2, py + photoH / 2);
             ctx.rotate(tilt);
 
-            // Fotoğraf gölgesi
+            
             ctx.fillStyle = "rgba(0,0,0,0.2)";
             ctx.fillRect(-photoW / 2 + 1, -photoH / 2 + 1, photoW, photoH);
 
-            // Beyaz polaroid kenarlığı
+            
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(-photoW / 2, -photoH / 2, photoW, photoH);
 
-            // Fotoğraf içeriği (stilize)
+            
             ctx.fillStyle = base;
             ctx.fillRect(-photoW / 2 + 1, -photoH / 2 + 1, photoW - 2, photoH - 3);
             ctx.fillStyle = light;
@@ -966,7 +966,7 @@ function drawMemoryFrame() {
 
             ctx.restore();
 
-            // Mandal
+            
             ctx.fillStyle = "#c9a86a";
             ctx.fillRect(px + photoW / 2 - 2, py - 3, 4, 5);
             ctx.fillStyle = "#a9895a";
@@ -977,9 +977,9 @@ function drawMemoryFrame() {
     ctx.restore();
 }
 
-// ========================================
-// YATAK
-// ========================================
+
+
+
 
 function drawBed(x = 30, y = 55) {
     ctx.save();
@@ -993,14 +993,14 @@ function drawBed(x = 30, y = 55) {
     const blanketBot = "#4f7d7d";
     const blanketBotLight = "#679999";
 
-    // Yere vuran genel gölge (yumuşatılmış)
+    
     const shadowGrad = ctx.createLinearGradient(x - 2, y + 68, x - 2, y + 74);
     shadowGrad.addColorStop(0, "rgba(0,0,0,0.20)");
     shadowGrad.addColorStop(1, "rgba(0,0,0,0)");
     ctx.fillStyle = shadowGrad;
     ctx.fillRect(x - 2, y + 68, 78, 6);
 
-    // --- ANA DİREKLER ---
+    
     ctx.fillStyle = woodDark;
     ctx.fillRect(x, y, 6, 70);
     ctx.fillStyle = "rgba(255,255,255,0.3)";
@@ -1011,7 +1011,7 @@ function drawBed(x = 30, y = 55) {
     ctx.fillStyle = "rgba(0,0,0,0.15)";
     ctx.fillRect(x + 71, y, 1, 70);
 
-    // --- ALT YATAK ---
+    
     ctx.fillStyle = woodMid;
     ctx.fillRect(x + 6, y + 38, 60, 8);
     ctx.fillStyle = mattress;
@@ -1029,7 +1029,7 @@ function drawBed(x = 30, y = 55) {
     ctx.fillStyle = "rgba(0,0,0,0.08)";
     ctx.fillRect(x + 10, y + 30, 16, 2);
 
-    // --- ÜST YATAK ---
+    
     ctx.fillStyle = woodMid;
     ctx.fillRect(x + 6, y + 12, 60, 8);
     ctx.fillStyle = mattress;
@@ -1047,7 +1047,7 @@ function drawBed(x = 30, y = 55) {
     ctx.fillStyle = "rgba(0,0,0,0.08)";
     ctx.fillRect(x + 10, y + 4, 16, 2);
 
-    // --- ÜST YATAK KORKULUĞU ---
+    
     ctx.fillStyle = woodLight;
     ctx.fillRect(x + 12, y - 4, 45, 4);
     ctx.fillStyle = "rgba(255,255,255,0.2)";
@@ -1058,7 +1058,7 @@ function drawBed(x = 30, y = 55) {
     ctx.fillRect(x + 35, y, 3, 12);
     ctx.fillRect(x + 50, y, 3, 12);
 
-    // --- MERDİVEN ---
+    
     ctx.fillStyle = woodLight;
     ctx.fillRect(x + 53, y + 12, 4, 68);
     ctx.fillRect(x + 64, y + 12, 4, 68);
@@ -1080,25 +1080,25 @@ function drawBed(x = 30, y = 55) {
     ctx.restore();
 }
 
-// ========================================
-// HALI
-// ========================================
+
+
+
 
 function drawRug() {
 
     ctx.save();
 
-    // Halının merkezini belirle
+    
     ctx.translate(162, 153);
 
-    // 90 derece döndür
+    
     ctx.rotate(Math.PI / 2);
 
-    // Gölge
+    
     ctx.fillStyle = "rgba(0,0,0,0.18)";
     ctx.fillRect(-54, -28, 108, 55);
 
-    // Halı
+    
     const rugGrad = ctx.createLinearGradient(0, -28, 0, 29);
     rugGrad.addColorStop(0, "#d69ba0");
     rugGrad.addColorStop(1, "#c07f88");
@@ -1106,17 +1106,17 @@ function drawRug() {
     ctx.fillStyle = rugGrad;
     ctx.fillRect(-54, -28, 108, 57);
 
-    // Halı kenarı
+    
     ctx.strokeStyle = "#e9bcb9";
     ctx.lineWidth = 3;
     ctx.strokeRect(-51, -25, 102, 51);
 
-    // İç kenar
+    
     ctx.strokeStyle = "rgba(255,255,255,0.25)";
     ctx.lineWidth = 1;
     ctx.strokeRect(-46, -20, 92, 41);
 
-    // Desen
+    
     ctx.fillStyle = "#e5b4b2";
 
     ctx.fillRect(-29, -11, 58, 3);
@@ -1125,11 +1125,11 @@ function drawRug() {
     ctx.fillRect(-14, -18, 3, 37);
     ctx.fillRect(11, -18, 3, 37);
 
-    // Merkez süsleme
+    
     ctx.fillStyle = "rgba(255,255,255,0.3)";
     ctx.fillRect(-3, -3, 6, 6);
 
-    // Saçaklar
+    
     ctx.fillStyle = "#e9bcb9";
 
     for (let fx = -50; fx < 52; fx += 6) {
@@ -1140,44 +1140,44 @@ function drawRug() {
 }
 
 
-// ========================================
-// MASA
-// ========================================
+
+
+
 
 function drawDesk() {
 
-    // Masa gölgesi
+    
     ctx.fillStyle = "rgba(60, 40, 30, 0.20)";
     ctx.fillRect(205, 128, 72, 5);
 
-    // Masa gövdesi (hafif gradyan ahşap)
+    
     const deskGrad = ctx.createLinearGradient(204, 91, 204, 128);
     deskGrad.addColorStop(0, "#ede4d6");
     deskGrad.addColorStop(1, "#dccdba");
     ctx.fillStyle = deskGrad;
     ctx.fillRect(204, 91, 72, 37);
 
-    // Masa üstü
+    
     ctx.fillStyle = "#f8f2e7";
     ctx.fillRect(201, 87, 78, 7);
     ctx.fillStyle = "rgba(255,255,255,0.5)";
     ctx.fillRect(201, 87, 78, 1);
 
-    // Masa ön kenarı
+    
     ctx.fillStyle = "#c9b7a3";
     ctx.fillRect(204, 94, 72, 4);
 
-    // Sol çekmece
+    
     ctx.fillStyle = "#e2d7c8";
     ctx.fillRect(209, 101, 25, 20);
     ctx.strokeStyle = "rgba(0,0,0,0.08)";
     ctx.strokeRect(209.5, 101.5, 24, 19);
 
-    // Çekmece kulpu
+    
     ctx.fillStyle = "#a5875f";
     ctx.fillRect(219, 109, 6, 2);
 
-    // Laptop
+    
     ctx.fillStyle = "#4c525c";
     ctx.fillRect(244, 96, 23, 15);
     const screenGrad = ctx.createLinearGradient(247, 98, 247, 109);
@@ -1192,7 +1192,7 @@ screenGrad.addColorStop(1, "#202a35");
     ctx.fillStyle = "#5c636e";
     ctx.fillRect(240, 111, 31, 3);
 
-    // Masa ayakları
+    
     ctx.fillStyle = "#c5b4a2";
     ctx.fillRect(208, 128, 6, 25);
     ctx.fillRect(266, 128, 6, 25);
@@ -1201,9 +1201,9 @@ screenGrad.addColorStop(1, "#202a35");
     ctx.fillRect(270, 128, 2, 25);
 
 
-    // =========================
-    // SANDALYE
-    // =========================
+    
+    
+    
 
     ctx.fillStyle = "rgba(60,40,30,0.15)";
     ctx.fillRect(226, 166, 38, 4);
@@ -1228,13 +1228,13 @@ screenGrad.addColorStop(1, "#202a35");
 }
 
 
-// ========================================
-// KİTAPLIK
-// ========================================
+
+
+
 
 function drawBookshelf() {
 
-    // Gövde
+    
     const shelfGrad = ctx.createLinearGradient(225, 30, 225, 78);
     shelfGrad.addColorStop(0, "#8a5f51");
     shelfGrad.addColorStop(1, "#6c4a3f");
@@ -1243,7 +1243,7 @@ function drawBookshelf() {
     ctx.strokeStyle = "rgba(0,0,0,0.2)";
     ctx.strokeRect(225.5, 30.5, 54, 47);
 
-    // Raflar
+    
     ctx.fillStyle = "#5e4038";
     ctx.fillRect(229, 45, 47, 4);
     ctx.fillRect(229, 61, 47, 4);
@@ -1260,14 +1260,14 @@ function drawBookshelf() {
         ctx.fillRect(bx + bw - 1, by, 1, bh);
     }
 
-    // Üst raf kitapları
+    
     book(232, 34, 5, 11, "#d27f7f");
     book(239, 32, 6, 13, "#e0b05d");
     book(248, 36, 5, 9, "#7896a6");
     book(256, 33, 6, 12, "#b67b9c");
     book(266, 35, 5, 10, "#d98d68");
 
-    // Alt raf kitapları
+    
     book(233, 50, 6, 11, "#88a078");
     book(241, 49, 5, 12, "#c98484");
     book(249, 52, 7, 9, "#8a9db4");
@@ -1276,29 +1276,29 @@ function drawBookshelf() {
 }
 
 
-// ========================================
-// BİTKİ
-// ========================================
+
+
+
 
 function drawPlant() {
 
-    // Bitkiyi kapının sağ tarafına taşıdık
+    
 
     const x = 68;
     const y = 203;
 
-    // Saksı
+    
     ctx.fillStyle = "#bd7866";
     ctx.fillRect(x, y, 20, 16);
 
     ctx.fillStyle = "#d28a72";
     ctx.fillRect(x - 3, y - 2, 26, 5);
 
-    // Gövde
+    
     ctx.fillStyle = "#64815c";
     ctx.fillRect(x + 9, y - 23, 3, 23);
 
-    // Yapraklar
+    
     ctx.fillStyle = "#72966a";
 
     ctx.fillRect(x, y - 19, 12, 6);
@@ -1307,13 +1307,13 @@ function drawPlant() {
     ctx.fillRect(x + 3, y - 9, 10, 6);
 }
 
-// ========================================
-// KÜÇÜK DEKORLAR
-// ========================================
+
+
+
 
 function drawDecorations() {
 
-    // Duvar resmi çerçevesi (gölgeli)
+    
     ctx.fillStyle = "rgba(0,0,0,0.15)";
     ctx.fillRect(84, 32, 20, 20);
     ctx.fillStyle = "#634940";
@@ -1325,7 +1325,7 @@ function drawDecorations() {
     ctx.fillRect(91, 38, 4, 6);
     ctx.fillRect(89, 40, 8, 3);
 
-    // Küçük lamba
+    
     ctx.fillStyle = "#5f453d";
     ctx.fillRect(190, 42, 3, 20);
 
@@ -1338,31 +1338,31 @@ function drawDecorations() {
     ctx.fillStyle = "rgba(255,255,255,0.6)";
     ctx.fillRect(186, 36, 4, 2);
 
-    // Küçük halı üstü kalp dekoru
+    
     ctx.fillStyle = "#eec0bc";
     ctx.fillRect(155, 181, 5, 4);
     ctx.fillRect(153, 183, 9, 4);
 }
 
 
-// ========================================
-// KAPI
-// ========================================
+
+
+
 
 function drawDoor() {
 
-    // Çerçeve
+    
     ctx.fillStyle = "#5f3f36";
     ctx.fillRect(25, 180, 35, 40);
 
-    // Kapı gövdesi (gradyan ahşap)
+    
     const doorGrad = ctx.createLinearGradient(29, 183, 56, 183);
     doorGrad.addColorStop(0, "#a9715e");
     doorGrad.addColorStop(1, "#8c5949");
     ctx.fillStyle = doorGrad;
     ctx.fillRect(29, 183, 27, 37);
 
-    // Panel çizgileri (ahşap kapı hissi)
+    
     ctx.strokeStyle = "rgba(0,0,0,0.15)";
     ctx.strokeRect(33, 187, 19, 13);
     ctx.strokeRect(33, 203, 19, 13);
@@ -1370,7 +1370,7 @@ function drawDoor() {
     ctx.fillStyle = "#cf9c76";
     ctx.fillRect(31, 186, 23, 2);
 
-    // Kapı kolu (parlak highlight ile)
+    
     ctx.fillStyle = "#e3bd72";
     ctx.fillRect(49, 201, 3, 3);
     ctx.fillStyle = "rgba(255,255,255,0.6)";
@@ -1378,17 +1378,17 @@ function drawDoor() {
 }
 
 
-// ========================================
-// KARAKTER
-// ========================================
+
+
+
 
 function drawInteractionPrompt() {
 
-    // Tablonun merkezi
+    
     const frameCenterX = memoryFrame.x + memoryFrame.width / 2;
     const frameCenterY = memoryFrame.y + memoryFrame.height / 2;
 
-    // Karakterin merkezi
+    
     const playerCenterX = player.x + player.width / 2;
     const playerCenterY = player.y + player.height / 2;
 
@@ -1406,7 +1406,7 @@ function drawInteractionPrompt() {
         ctx.font = "7px monospace";
         ctx.textAlign = "center";
 
-        ctx.fillText("[E] Anıları incele", 162, 124);
+        ctx.fillText("[E] examine the memories", 162, 124);
 
         ctx.textAlign = "left";
     }
@@ -1420,7 +1420,7 @@ function drawInteractionPrompt() {
         ctx.font = "7px monospace";
         ctx.textAlign = "center";
 
-        ctx.fillText("[E] Ranzaya çık", 135, 129);
+        ctx.fillText("[E] climb onto the bunk bed", 135, 129);
 
         ctx.textAlign = "left";
     }
@@ -1434,7 +1434,7 @@ function drawInteractionPrompt() {
         ctx.font = "7px monospace";
         ctx.textAlign = "center";
 
-        ctx.fillText("[E] Aşağı in", 70, 80);
+        ctx.fillText("[E] go downstairs", 70, 80);
 
         ctx.textAlign = "left";
     }
@@ -1448,19 +1448,19 @@ function drawInteractionPrompt() {
         ctx.font = "7px monospace";
         ctx.textAlign = "center";
 
-        ctx.fillText("[E] Laptopu aç", 257, 85);
+        ctx.fillText("[E] open the laptop", 257, 85);
 
         ctx.textAlign = "left";
     }
 }
 
-// ========================================
-// ORTAK KARAKTER SPRITE'I
-// ========================================
-// Oda içindeki oyuncu, mini oyundaki koşan karakter ve mini oyun
-// sonundaki Melek hepsi bu tek fonksiyonu kullanır - böylece hepsi
-// aynı tasarım ve aynı boyutta olur. Sadece saç rengi ve
-// bakış yönü (flip) değişir.
+
+
+
+
+
+
+
 
 const HAIR_PALETTES = {
     black: { base: "#17141c", light: "#29232e", tip: "#111017" },
@@ -1484,154 +1484,154 @@ function drawCharacterSprite(rawX, rawY, opts = {}) {
         x = 0;
     }
 
-    // ========================================
-    // GÖLGE
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "rgba(45,25,35,0.28)";
     ctx.fillRect(x + 2, y + 20, 13, 3);
 
 
-    // ========================================
-    // DÜMDÜZ SAÇ
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = hair.base;
 
-    // Üst saç
+    
     ctx.fillRect(x + 2, y - 7, 12, 5);
 
-    // Başın iki yanında dümdüz inen saç
+    
     ctx.fillRect(x, y - 3, 3, 18);
     ctx.fillRect(x + 13, y - 3, 3, 18);
 
-    // Arka saç
+    
     ctx.fillRect(x + 2, y - 2, 12, 5);
 
-    // Saçın parlaklığı
+    
     ctx.fillStyle = hair.light;
     ctx.fillRect(x + 3, y - 6, 7, 1);
 
-    // Saç uçları
+    
     ctx.fillStyle = hair.tip;
     ctx.fillRect(x, y + 12, 3, 4);
     ctx.fillRect(x + 13, y + 12, 3, 4);
 
-    // ========================================
-    // YÜZ
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "#e0c0ac";
     ctx.fillRect(x + 3, y, 10, 9);
 
-    // Yüz ışığı
+    
     ctx.fillStyle = "#edd6c5";
     ctx.fillRect(x + 4, y + 1, 3, 2);
 
-    // Hafif yanak
+    
     ctx.fillStyle = "rgba(242, 209, 209, 0.84)";
     ctx.fillRect(x + 4, y + 6, 2, 1);
     ctx.fillRect(x + 10, y + 6, 2, 1);
 
 
-    // ========================================
-    // MAVİ FAR
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "#5369d9";
 
-    // Far gözün ÜSTÜNDE
+    
     ctx.fillRect(x + 4, y + 2, 3, 1);
     ctx.fillRect(x + 9, y + 2, 3, 1);
 
-    // Hafif dış far
+    
     ctx.fillStyle = "#394da8";
     ctx.fillRect(x + 4, y + 3, 1, 1);
     ctx.fillRect(x + 11, y + 3, 1, 1);
 
-    // ========================================
-    // KAHVERENGİ GÖZLER
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "#4a2b20";
 
-    // Sol göz
+    
     ctx.fillRect(x + 5, y + 3, 2, 2);
 
-    // Sağ göz
+    
     ctx.fillRect(x + 9, y + 3, 2, 2);
 
-    // Göz bebeği
+    
     ctx.fillStyle = "#241711";
     ctx.fillRect(x + 6, y + 3, 1, 1);
     ctx.fillRect(x + 9, y + 3, 1, 1);
 
-    // ========================================
-    // BOYUN
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "#deb8a2";
     ctx.fillRect(x + 6, y + 8, 4, 3);
 
 
-    // ========================================
-    // GOTHIC ÜST — DAHA AÇIK YAKA
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "#211b29";
     ctx.fillRect(x + 3, y + 10, 10, 7);
 
-    // Omuzlar
+    
     ctx.fillRect(x + 2, y + 11, 12, 3);
 
-    // Açık yaka
+    
     ctx.fillStyle = "#e9c3ac";
     ctx.fillRect(x + 6, y + 10, 4, 2);
 
-    // V yaka
+    
     ctx.fillStyle = "#17151e";
     ctx.fillRect(x + 5, y + 12, 6, 1);
     ctx.fillRect(x + 6, y + 13, 4, 1);
 
-    // Mor kumaş detayı
+    
     ctx.fillStyle = "#493454";
     ctx.fillRect(x + 3, y + 14, 10, 3);
 
-    // Ortadaki küçük kolye
+    
     ctx.fillStyle = "#d8b6c8";
     ctx.fillRect(x + 7, y + 12, 2, 2);
     ctx.fillRect(x + 6, y + 14, 4, 1);
 
-    // ========================================
-    // KOLLAR
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "#211b29";
 
     ctx.fillRect(x + 1, y + 11, 2, 6);
     ctx.fillRect(x + 13, y + 11, 2, 6);
 
-    // Eller
+    
     ctx.fillStyle = "#c98f6b";
     ctx.fillRect(x + 1, y + 16, 2, 2);
     ctx.fillRect(x + 13, y + 16, 2, 2);
 
 
-    // ========================================
-    // ETEK / ALT
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "#17151e";
     ctx.fillRect(x + 3, y + 17, 10, 4);
 
-    // Mor detay
+    
     ctx.fillStyle = "#493454";
     ctx.fillRect(x + 4, y + 17, 8, 1);
 
 
-    // ========================================
-    // BOTLAR
-    // ========================================
+    
+    
+    
 
     ctx.fillStyle = "#14121a";
 
@@ -1661,13 +1661,13 @@ function drawPlayer() {
     });
 }
 
-// ========================================
-// GENEL IŞIK / ATMOSFER (yeni, opsiyonel katman)
-// ========================================
+
+
+
 
 function drawAmbientLight() {
 
-    // Pencereden gelen hafif ışık huzmesi
+    
     ctx.save();
     const lightGrad = ctx.createRadialGradient(150, 45, 5, 150, 45, 130);
     lightGrad.addColorStop(0, "rgba(255,248,220,0.14)");
@@ -1675,7 +1675,7 @@ function drawAmbientLight() {
     ctx.fillStyle = lightGrad;
     ctx.fillRect(20, 20, 280, 200);
 
-    // Köşelerde hafif vinyet (derinlik hissi)
+    
     const vignette = ctx.createRadialGradient(160, 130, 60, 160, 130, 200);
     vignette.addColorStop(0, "rgba(0,0,0,0)");
     vignette.addColorStop(1, "rgba(40,25,20,0.10)");
@@ -1685,15 +1685,15 @@ function drawAmbientLight() {
 }
 
 
-// ========================================
-// OYUNU ÇİZ
-// ========================================
+
+
+
 
 function draw() {
 
-    // ----------------------------------------------------------
-    // CANVAS TEMİZLE
-    // ----------------------------------------------------------
+    
+    
+    
 
     ctx.clearRect(
         0,
@@ -1702,9 +1702,9 @@ function draw() {
         GAME_HEIGHT
     );
 
-    // ----------------------------------------------------------
-    // ODAYI EKRANIN GENİŞLİĞİNE GÖRE ORTALA
-    // ----------------------------------------------------------
+    
+    
+    
 
     const roomWidth = 320;
     const roomHeight = 240;
@@ -1715,19 +1715,19 @@ function draw() {
     const verticalScale =
         GAME_HEIGHT / roomHeight;
 
-    /*
-     * Odanın içeriğini orantılı şekilde büyüt.
-     *
-     * Ancak geniş ekranlarda oda yatay olarak uzamasın.
-     * Bunun yerine mevcut oda merkezde kalsın ve
-     * zeminin/duvarın kendisi sağa-sola uzatılsın.
-     */
+    
+
+
+
+
+
+
 
     ctx.save();
 
-    // ----------------------------------------------------------
-    // NORMAL ODA
-    // ----------------------------------------------------------
+    
+    
+    
 
     drawFloor();
     drawWalls();
@@ -1748,9 +1748,9 @@ function draw() {
 
     ctx.restore();
 
-    // ----------------------------------------------------------
-    // POPUP / LAPTOP
-    // ----------------------------------------------------------
+    
+    
+    
 
     if (memoryOpen) {
         drawMemoryPopup();
@@ -1761,9 +1761,9 @@ function draw() {
     }
 }
 
-// Videonun sol/sağındaki siyah dolgunun her bir kenardan ne kadarını
-// kırpacağımız (0 ile 0.49 arası). Görüntü hâlâ dar/geniş gelirse bu
-// sayıyı artır/azalt.
+
+
+
 const VIDEO_CROP_SIDE = 0.35;
 
 function drawFileIcon(cx, cy, color) {
@@ -1840,7 +1840,7 @@ function drawDesktopIcons(screenX, screenY, screenW) {
         const cx = ix + iconSize / 2;
         const cy = iy + 12;
 
-        // İkon zemini (hover benzeri hafif kutu)
+        
         ctx.fillStyle = "rgba(255,255,255,0.06)";
         ctx.fillRect(ix, iy, iconSize, iconSize);
 
@@ -1872,7 +1872,7 @@ function drawDesktopIcons(screenX, screenY, screenW) {
 
 function drawLaptopScreen() {
 
-    // Arka plan karartması
+    
     ctx.fillStyle = "rgba(0,0,0,0.75)";
     ctx.fillRect(20, 20, 280, 200);
 
@@ -1881,13 +1881,13 @@ function drawLaptopScreen() {
     const screenW = 230;
     const screenH = 155;
 
-    // Laptop dış çerçevesi
+    
     ctx.fillStyle = "#2a2d33";
     ctx.fillRect(screenX - 5, screenY - 5, screenW + 10, screenH + 10);
     ctx.fillStyle = "#3d4148";
     ctx.fillRect(screenX - 5, screenY - 5, screenW + 10, 3);
 
-    // Masaüstü zemini
+    
     const screenGrad = ctx.createLinearGradient(screenX, screenY, screenX, screenY + screenH);
     screenGrad.addColorStop(0, "#3a5f7d");
     screenGrad.addColorStop(1, "#1b2a3a");
@@ -1906,7 +1906,7 @@ function drawLaptopScreen() {
 
         drawDesktopIcons(screenX, screenY, screenW);
 
-        // Görev çubuğu
+        
         const taskbarH = 14;
         ctx.fillStyle = "rgba(20,22,28,0.9)";
         ctx.fillRect(screenX, screenY + screenH - taskbarH, screenW, taskbarH);
@@ -1914,18 +1914,18 @@ function drawLaptopScreen() {
         ctx.fillStyle = "#ffffff";
         ctx.font = "6px monospace";
         ctx.textAlign = "left";
-        ctx.fillText("[E] Laptopu kapat", screenX + 6, screenY + screenH - 4);
+        ctx.fillText("[E] close the laptop", screenX + 6, screenY + screenH - 4);
         ctx.textAlign = "left";
     }
 }
 
 function drawBrowserPage(screenX, screenY, screenW, screenH) {
 
-    // Sayfa arka planı
+    
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(screenX, screenY, screenW, screenH - 14);
 
-    // Adres çubuğu
+    
     ctx.fillStyle = "#e8e8e8";
     ctx.fillRect(screenX, screenY, screenW, 10);
     ctx.fillStyle = "#555555";
@@ -1936,7 +1936,7 @@ function drawBrowserPage(screenX, screenY, screenW, screenH) {
     const centerX = screenX + screenW / 2;
     let logoY = screenY + 55;
 
-    // ---- "Google" logosu yerine doğum günü temalı özel logo ----
+    
     ctx.textAlign = "center";
     ctx.font = "bold 20px monospace";
 
@@ -1953,19 +1953,19 @@ function drawBrowserPage(screenX, screenY, screenW, screenH) {
     ctx.fillStyle = "#EA4335";
     ctx.fillText("!", centerX + 20, logoY);
 
-    // Küçük konfeti / balon dekorları (doodle hissi)
+    
     ctx.font = "10px monospace";
     ctx.fillStyle = "#EA4335";
     ctx.fillText("🎈", centerX - 55, logoY - 8);
     ctx.fillStyle = "#34A853";
     ctx.fillText("🎉", centerX + 55, logoY - 8);
 
-    // Alt yazı
+    
     ctx.font = "6px monospace";
     ctx.fillStyle = "#666666";
-    ctx.fillText("İyi ki doğdun Verda 🎂", centerX, logoY + 14);
+    ctx.fillText("happy birthday verda 🎂", centerX, logoY + 14);
 
-    // Arama çubuğu
+    
     const barW = 150;
     const barX = centerX - barW / 2;
     const barY = logoY + 26;
@@ -1981,7 +1981,7 @@ function drawBrowserPage(screenX, screenY, screenW, screenH) {
     ctx.fillStyle = "#999999";
     ctx.font = "6px monospace";
     ctx.textAlign = "left";
-    ctx.fillText("Verda'yı ara...", barX + 10, barY + 9);
+    ctx.fillText("find verda...", barX + 10, barY + 9);
 
     ctx.textAlign = "left";
 }
@@ -2014,7 +2014,7 @@ function resetAngelPlayer() {
     interactSound.play().catch(() => {});
 }
 
-// Verilen x aralığının bir çukurun içine denk gelip gelmediğini söyler
+
 function angelIsOverPit(x, w) {
     for (const pit of angelPits) {
         if (x + w > pit.x && x < pit.x + pit.w) return true;
@@ -2060,9 +2060,9 @@ if (keys["e"]) {
 
     angelPlayer.x = Math.max(0, Math.min(ANGEL_WORLD_W - angelPlayer.width, angelPlayer.x));
 
-    // Platform inişi (Mario tarzı yükseltilmiş zeminler) - zemin/çukur
-    // kontrolünden ÖNCE çalışır, böylece havadaki bir platforma inmek
-    // normal zemine inmekten önceliklidir.
+    
+    
+    
     let onPlatform = false;
 
     if (angelPlayer.vy >= 0) {
@@ -2085,7 +2085,7 @@ if (keys["e"]) {
 
     if (!onPlatform) {
 
-        // Zemine iniş - sadece bir çukurun üstünde DEĞİLSEK zemin destek verir
+        
         const overPit = angelIsOverPit(angelPlayer.x + angelPlayer.width * 0.5, 1);
 
         if (!overPit && angelPlayer.vy >= 0 && angelPlayer.y + angelPlayer.height >= ANGEL_GROUND_Y) {
@@ -2097,13 +2097,13 @@ if (keys["e"]) {
         }
     }
 
-    // Çukura / boşluğa düşünce en baştan başla
+    
     if (angelPlayer.y > ANGEL_DEATH_Y) {
         resetAngelPlayer();
         return;
     }
 
-    // Dikenlere değince en baştan başla
+    
     for (const spike of angelSpikes) {
         const touchingX = angelPlayer.x + angelPlayer.width > spike.x && angelPlayer.x < spike.x + spike.w;
         const touchingGround = angelPlayer.y + angelPlayer.height >= ANGEL_GROUND_Y - 2;
@@ -2113,7 +2113,7 @@ if (keys["e"]) {
         }
     }
 
-    // Tatlı sözler
+    
     for (const spot of angelSweetSpots) {
         if (!spot.triggered && angelPlayer.x > spot.x) {
             spot.triggered = true;
@@ -2121,7 +2121,7 @@ if (keys["e"]) {
         }
     }
 
-    // Mum toplama
+    
     for (const candle of angelCandles) {
         if (!candle.collected) {
             const dx = (angelPlayer.x + angelPlayer.width / 2) - candle.x;
@@ -2133,12 +2133,12 @@ if (keys["e"]) {
         }
     }
 
-    // Kamera oyuncuyu ekranın ortasında tutar, seviye sınırlarını aşmaz
+    
     const screenW = 230;
     const targetCameraX = angelPlayer.x - screenW / 2;
     angelCameraX = Math.max(0, Math.min(ANGEL_WORLD_W - screenW, targetCameraX));
 
-    // Hedefe ulaşınca yaklaşma aşamasına geç
+    
     if (angelPlayer.x + angelPlayer.width >= ANGEL_GOAL_X) {
         angelPhase = "approach";
         approachTimer = 0;
@@ -2147,7 +2147,7 @@ if (keys["e"]) {
 
 function updateAngelGameApproach() {
 
-    // Karakter otomatik olarak Melek'e doğru yürür, kamera hedefte sabitlenir
+    
     angelPlayer.vx = ANGEL_MOVE_SPEED * 0.6;
     angelPlayer.facing = "right";
     angelPlayer.vy += ANGEL_GRAVITY;
@@ -2199,7 +2199,7 @@ function updateAngelGameDialogue() {
             }
         }
 
-        // Yazı tamamlanmadıysa E'ye basınca hızlıca tamamla
+        
         if (keys["e"]) {
             dialogueDisplayedChars = BIRTHDAY_MESSAGE.length;
             dialogueDone = true;
@@ -2245,11 +2245,11 @@ function updateAngelGame() {
     } else if (angelPhase === "candles") {
         updateAngelGameCandles();
     }
-    // "won" aşamasında oyun içi güncelleme yok; kapatma checkLaptopInteraction ile yapılır
+    
 }
 
-// Koşan karakter (arkadaşın) - eski basit sprite. Artık kullanılmıyor
-// (bkz. drawCharacterSprite), ama bozulma riskine karşı silinmedi.
+
+
 function drawRunnerSprite(x, y, facing, walking) {
 
     x = Math.round(x);
@@ -2267,20 +2267,20 @@ function drawRunnerSprite(x, y, facing, walking) {
     ctx.fillStyle = "rgba(0,0,0,0.25)";
     ctx.fillRect(x, y + 12, 9, 2);
 
-    // Saç
+    
     ctx.fillStyle = "#2e1e30";
     ctx.fillRect(x + 1, y - 2, 7, 4);
     ctx.fillRect(x, y, 9, 3);
 
-    // Yüz
+    
     ctx.fillStyle = "#f2bd91";
     ctx.fillRect(x + 1, y + 2, 7, 5);
 
-    // Üst
+    
     ctx.fillStyle = "#7d5570";
     ctx.fillRect(x + 1, y + 7, 7, 4);
 
-    // Bacaklar (koşu animasyonu)
+    
     const step = walking ? Math.floor(Date.now() / 100) % 2 : 0;
     ctx.fillStyle = "#463655";
     if (step === 0) {
@@ -2294,9 +2294,9 @@ function drawRunnerSprite(x, y, facing, walking) {
     ctx.restore();
 }
 
-// Sona bekleyen "Melek" karakteri - eski basit sprite. Artık
-// kullanılmıyor (bkz. drawCharacterSprite), ama bozulma riskine
-// karşı silinmedi.
+
+
+
 function drawMelekSprite(cx, groundY) {
 
     const x = Math.round(cx - 6);
@@ -2305,35 +2305,35 @@ function drawMelekSprite(cx, groundY) {
     ctx.fillStyle = "rgba(0,0,0,0.25)";
     ctx.fillRect(x - 1, groundY - 2, 14, 3);
 
-    // Saç
+    
     ctx.fillStyle = "#4a2f22";
     ctx.fillRect(x, y - 2, 12, 5);
     ctx.fillRect(x - 1, y, 14, 6);
 
-    // Yüz
+    
     ctx.fillStyle = "#f2c79a";
     ctx.fillRect(x + 1, y + 3, 10, 7);
     ctx.fillStyle = "#2b1b2a";
     ctx.fillRect(x + 3, y + 6, 1, 1);
     ctx.fillRect(x + 8, y + 6, 1, 1);
 
-    // Üst / kıyafet
+    
     ctx.fillStyle = "#e0517a";
     ctx.fillRect(x, y + 10, 12, 8);
     ctx.fillStyle = "#f2a4bd";
     ctx.fillRect(x, y + 10, 12, 2);
 
-    // Kollar - açık, sanki sarılmaya hazır
+    
     ctx.fillStyle = "#f2c79a";
     ctx.fillRect(x - 3, y + 12, 3, 4);
     ctx.fillRect(x + 12, y + 12, 3, 4);
 
-    // Alt
+    
     ctx.fillStyle = "#463655";
     ctx.fillRect(x, y + 18, 12, 4);
 }
 
-// Doğum günü pastası - toplanan mumlar üstüne tek tek yerleştirilir
+
 function drawCake(cx, groundY, litCandles, totalCandles) {
 
     const w = 34;
@@ -2344,23 +2344,23 @@ function drawCake(cx, groundY, litCandles, totalCandles) {
     ctx.fillStyle = "rgba(0,0,0,0.2)";
     ctx.fillRect(x - 2, groundY - 2, w + 4, 3);
 
-    // Tabak
+    
     ctx.fillStyle = "#e8dccb";
     ctx.fillRect(x - 3, groundY - 3, w + 6, 3);
 
-    // Alt kat
+    
     ctx.fillStyle = "#caa06e";
     ctx.fillRect(x, y + h * 0.55, w, h * 0.45);
     ctx.fillStyle = "#f2c9de";
     ctx.fillRect(x, y + h * 0.4, w, h * 0.2);
 
-    // Üst kat
+    
     ctx.fillStyle = "#e0517a";
     ctx.fillRect(x + 5, y, w - 10, h * 0.42);
     ctx.fillStyle = "#f2a4bd";
     ctx.fillRect(x + 5, y, w - 10, 2);
 
-    // Mum yuvaları
+    
     const slotGap = (w - 10) / (totalCandles + 1);
     for (let i = 0; i < totalCandles; i++) {
 
@@ -2371,7 +2371,7 @@ function drawCake(cx, groundY, litCandles, totalCandles) {
         ctx.fillRect(slotX - 1, slotY - 6, 2, 6);
 
         if (i < litCandles) {
-            // Alev
+            
             ctx.fillStyle = "#ffb347";
             ctx.beginPath();
             ctx.ellipse(slotX, slotY - 8, 1.4, 2.2, 0, 0, Math.PI * 2);
@@ -2426,7 +2426,7 @@ function drawAngelSweetBubble(sx, sy, text) {
     ctx.textAlign = "left";
 }
 
-// Konuşma balonu - metin harf harf yazılır (typewriter efekti)
+
 function drawAngelDialogueBox(screenX, screenY, screenW, screenH) {
 
     const boxH = 60;
@@ -2447,7 +2447,7 @@ function drawAngelDialogueBox(screenX, screenY, screenW, screenH) {
 
     const visibleText = BIRTHDAY_MESSAGE.slice(0, dialogueDisplayedChars);
 
-    // Basit kelime kaydırma (word wrap)
+    
     ctx.font = "6px monospace";
     ctx.fillStyle = "#ffffff";
 
@@ -2474,7 +2474,7 @@ function drawAngelDialogueBox(screenX, screenY, screenW, screenH) {
     ctx.font = "6px monospace";
     ctx.textAlign = "right";
     ctx.fillText(
-        dialogueDone ? "[E] Devam et" : "[E] Hızlandır",
+        dialogueDone ? "[E] continue" : "[E] speed up",
         boxX + boxW - 6,
         boxY + boxH - 6
     );
@@ -2489,7 +2489,7 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     ctx.rect(screenX, screenY, screenW, screenH);
     ctx.clip();
 
-    // Gökyüzü
+    
     const skyGrad = ctx.createLinearGradient(
         0,
         screenY,
@@ -2511,9 +2511,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
         screenY + ANGEL_GROUND_Y - 20;
 
 
-    // =========================
-    // BULUTLAR
-    // =========================
+    
+    
+    
 
     ctx.fillStyle = "rgba(255,255,255,0.7)";
 
@@ -2537,9 +2537,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // UZAK TEPELER
-    // =========================
+    
+    
+    
 
     ctx.fillStyle = "rgba(120,180,140,0.5)";
 
@@ -2569,9 +2569,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // ZEMİN
-    // =========================
+    
+    
+    
 
     ctx.fillStyle = "#8fd39a";
 
@@ -2636,9 +2636,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     ctx.stroke();
 
 
-    // =========================
-    // ÇUKURLAR
-    // =========================
+    
+    
+    
 
     for (const pit of angelPits) {
 
@@ -2660,9 +2660,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // DİKENLER
-    // =========================
+    
+    
+    
 
     for (const spike of angelSpikes) {
 
@@ -2703,9 +2703,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // PLATFORMlar
-    // =========================
+    
+    
+    
 
     for (const plat of angelPlatforms) {
 
@@ -2757,9 +2757,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // MUMLAR
-    // =========================
+    
+    
+    
 
     for (const candle of angelCandles) {
 
@@ -2780,9 +2780,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // MELEK + PASTA
-    // =========================
+    
+    
+    
 
     const goalScreenX =
         worldToScreenX(ANGEL_GOAL_X);
@@ -2804,9 +2804,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     );
 
 
-    // =========================
-    // OYUNCU
-    // =========================
+    
+    
+    
 
     const pScreenX =
         worldToScreenX(angelPlayer.x) - 2;
@@ -2831,9 +2831,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     );
 
 
-    // =========================
-    // TATLI SÖZLER
-    // =========================
+    
+    
+    
 
     if (angelPhase === "playing") {
 
@@ -2861,9 +2861,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     ctx.restore();
 
 
-    // =========================
-    // MUM HUD
-    // =========================
+    
+    
+    
 
     if (
         angelPhase === "playing" ||
@@ -2902,9 +2902,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // KONTROL İPUCU
-    // =========================
+    
+    
+    
 
     if (angelPhase === "playing") {
 
@@ -2923,7 +2923,7 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
         ctx.textAlign = "left";
 
         ctx.fillText(
-            "◀ ▶ yürü   ▲ zıpla",
+            "◀ ▶ walk   ▲ jump",
             screenX + 8,
             screenY + 15
         );
@@ -2932,9 +2932,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // DİYALOG
-    // =========================
+    
+    
+    
 
     if (angelPhase === "dialogue") {
 
@@ -2947,9 +2947,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // MUMLARI PASTAYA KOYMA
-    // =========================
+    
+    
+    
 
     if (angelPhase === "candles") {
 
@@ -2968,7 +2968,7 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
         ctx.textAlign = "center";
 
         ctx.fillText(
-            "Mumları pastaya yerleştir: " +
+            "place the candles on the cake: " +
             candlesPlaced +
             "/" +
             angelCandles.length,
@@ -2980,7 +2980,7 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
         ctx.fillStyle = "#e8c7a5";
 
         ctx.fillText(
-            "[E] Mum yerleştir",
+            "[E] place the candles",
             screenX + screenW / 2,
             screenY + screenH - 9
         );
@@ -2989,9 +2989,9 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
     }
 
 
-    // =========================
-    // KAZANDIN
-    // =========================
+    
+    
+    
 
     if (angelPhase === "won") {
 
@@ -3010,7 +3010,7 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
         ctx.textAlign = "center";
 
         ctx.fillText(
-            "Kazandın! 🎉",
+            "you won! 🎉",
             screenX + screenW / 2,
             screenY + screenH / 2 - 10
         );
@@ -3019,7 +3019,7 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
         ctx.fillStyle = "#e8c7d8";
 
         ctx.fillText(
-            "İyi ki doğdun 🎂",
+            "happy birthday🎂",
             screenX + screenW / 2,
             screenY + screenH / 2 + 6
         );
@@ -3037,11 +3037,11 @@ function drawAngelGame(screenX, screenY, screenW, screenH) {
 
 function drawMemoryPopup() {
 
-    // Arka plan karartması
+    
     ctx.fillStyle = "rgba(0,0,0,0.65)";
     ctx.fillRect(20, 20, 280, 200);
 
-    // Maksimum alan sınırları (bu sınırları aşmaz ama tam doldurmaz)
+    
     const maxW = 130;
     const maxH = 150;
     const centerX = 160;
@@ -3057,8 +3057,8 @@ function drawMemoryPopup() {
 
         hasVideo = true;
 
-        // Kaynak videodan sadece ortadaki gerçek görüntüyü al,
-        // yan taraflardaki siyah dolguyu kırp
+        
+        
         sx = memoryVideo.videoWidth * VIDEO_CROP_SIDE;
         sw = memoryVideo.videoWidth * (1 - VIDEO_CROP_SIDE * 2);
         sy = 0;
@@ -3079,7 +3079,7 @@ function drawMemoryPopup() {
     const videoX = centerX - drawW / 2;
     const videoY = centerY - drawH / 2;
 
-    // Çerçeve, videonun gerçek boyutuna sıkı şekilde sarılır
+    
     const pad = 6;
     ctx.fillStyle = "#f3e6dc";
     ctx.fillRect(videoX - pad, videoY - pad, drawW + pad * 2, drawH + pad * 2);
@@ -3091,13 +3091,13 @@ function drawMemoryPopup() {
         ctx.drawImage(memoryVideo, sx, sy, sw, sh, videoX, videoY, drawW, drawH);
     }
 
-    // Başlık
+    
     ctx.fillStyle = "#ffffff";
     ctx.font = "8px monospace";
     ctx.textAlign = "center";
 
     ctx.fillText(
-        "Birlikte geçirdiğimiz anılar",
+        "the moments we shared",
         160,
         videoY + drawH + pad + 12
     );
@@ -3105,9 +3105,9 @@ function drawMemoryPopup() {
     ctx.textAlign = "left";
 }
 
-//=========================================
-// OYUN DÖNGÜSÜ  (DEĞİŞTİRİLMEDİ)
-// ========================================
+
+
+
 
 function gameLoop() {
 
@@ -3116,9 +3116,9 @@ function gameLoop() {
         checkMemoryInteraction();
         checkBunkInteraction();
 
-        // updateAngelGame checkLaptopInteraction'dan ÖNCE çalışır ki
-        // diyalog/mum yerleştirme aşamalarında "E" tuşunu kendi içinde
-        // kullanabilsin (aksi halde aynı "E" basışı laptopu da kapatırdı).
+        
+        
+        
         updateAngelGame();
         checkLaptopInteraction();
     }
